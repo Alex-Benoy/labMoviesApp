@@ -34,6 +34,12 @@ const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
                 {movie.overview}
             </Typography>
 
+            {movie.tagline && (
+                <Typography variant="subtitle1" component="p" fontStyle="italic">
+                    {movie.tagline}
+                </Typography>
+            )}
+
             <Paper component="ul" sx={styles.chipSet}>
                 <li>
                     <Chip label="Genres" sx={styles.chipLabel} color="primary" />
@@ -56,6 +62,31 @@ const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
                 />
                 <Chip label={`Released: ${movie.release_date}`} />
             </Paper>
+
+            {movie.production_countries?.length > 0 && (
+                <Paper component="ul" sx={styles.chipSet}>
+                    <li>
+                        <Chip 
+                            label="Production Countries"
+                            sx={styles.chipLabel}
+                            color="primary"
+                        />
+                    </li>
+                    {movie.production_countries.map((country) => (
+                        <li key={country.iso_3166_1}>
+                            <Chip label={country.name} />
+                        </li>
+                    ))}
+                </Paper>
+            )}
+
+            {movie.homepage && (
+                <Typography variant="subtitle1" component="p" sx={{ mt: 2 }}>
+                    <a href={movie.homepage} target="_blank" rel="noopener noreferrer">
+                        Official Website
+                    </a>
+                </Typography>
+            )}
         </>
     );
 };
