@@ -86,3 +86,12 @@ export interface DiscoverMovies {
   total_results: number;
   results: BaseMovieProps[];
 }
+
+interface MovieContextInterface {
+  favourites: number[];
+  mustWatch: number[]; // ✅ New
+  addToFavourites: (movie: BaseMovieProps) => void;
+  removeFromFavourites: (movie: BaseMovieProps) => void;
+  addToMustWatch: (movie: BaseMovieProps) => void; // ✅ New
+  addReview: (movie: BaseMovieProps, review: Review) => void;
+}
