@@ -65,3 +65,14 @@ export const getMovieReviews = (id: string | number) => { //movie id can be stri
       return json.results;
     });
 };
+
+export const getUpcomingMovies = () => {
+  return fetch(
+    `https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+  ).then((response) => {
+    if (!response.ok) {
+      throw new Error(`Failed to fetch upcoming movies: ${response.status}`);
+    }
+    return response.json();
+  });
+};
