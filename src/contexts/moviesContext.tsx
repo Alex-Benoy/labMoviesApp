@@ -68,3 +68,4 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = ({ children }) 
 };
 
 export default MoviesContextProvider;
+

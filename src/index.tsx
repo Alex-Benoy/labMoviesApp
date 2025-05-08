@@ -17,6 +17,7 @@ import TVSeriesDetailsPage from "./pages/tvSeriesDetailsPage";
 import ActorsPage from "./pages/actorsPage";
 import SignInPage from "./pages/loginPage";
 import { UserProvider } from "./contexts/loginContext"; // <-- ✅ ADD THIS LINE
+import ActorDetailsPage from "./pages/actorDetailsPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,6 +49,7 @@ const App = () => {
               <Route path="/actors" element={<ActorsPage />} />
               <Route path="/login" element={<SignInPage />} />
               <Route path="*" element={<Navigate to="/" />} />
+              <Route path="/actors/:id" element={<ActorDetailsPage />} />
             </Routes>
           </MoviesContextProvider>
         </UserProvider>

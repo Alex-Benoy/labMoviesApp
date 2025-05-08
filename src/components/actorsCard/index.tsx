@@ -14,10 +14,39 @@ import { ActorProps } from "../../types/interfaces"; // Ensure it's exported fro
 import img from "../../images/film-poster-placeholder.png";
 
 const styles = {
-  card: { maxWidth: 345 },
-  media: { height: 500 },
+  card: {
+    maxWidth: 345,
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", // Added shadow for a lifted effect
+    borderRadius: "10px", // Rounded corners for the card
+    transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease", // Smooth hover effect
+    "&:hover": {
+      transform: "scale(1.05)", // Scale effect on hover
+      boxShadow: "0 8px 16px rgba(0, 0, 0, 0.3)", // Increased shadow on hover
+    },
+  },
+  media: {
+    height: 400, // Reduced height for better image scaling
+    borderRadius: "10px", // Rounded corners for the image
+  },
   avatar: {
     backgroundColor: "rgb(0, 153, 255)",
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: "1.1rem", // Slightly larger font size for actor's name
+  },
+  subheader: {
+    fontSize: "0.9rem", // Smaller font for the 'known for' department
+    color: "gray",
+  },
+  cardContent: {
+    padding: "16px", // Padding for the content area
+  },
+  chip: {
+    marginRight: "8px", // Spacing between chips
+  },
+  button: {
+    marginTop: "10px", // Space between button and content
   },
 };
 
@@ -40,11 +69,11 @@ const ActorCard: React.FC<ActorCardProps> = ({ actor, action }) => {
           </Avatar>
         }
         title={
-          <Typography variant="h6" component="p">
+          <Typography variant="h6" component="p" sx={styles.title}>
             {actor.name}
           </Typography>
         }
-        subheader={actor.known_for_department}
+        subheader={<Typography variant="body2" sx={styles.subheader}>{actor.known_for_department}</Typography>}
       />
 
       <CardMedia
@@ -54,7 +83,7 @@ const ActorCard: React.FC<ActorCardProps> = ({ actor, action }) => {
         alt={actor.name}
       />
 
-      <CardContent>
+      <CardContent sx={styles.cardContent}>
         <Grid container>
           <Grid item xs={12}>
             <Typography variant="body1" component="p">
@@ -64,7 +93,7 @@ const ActorCard: React.FC<ActorCardProps> = ({ actor, action }) => {
         </Grid>
       </CardContent>
 
-      <CardActions disableSpacing>
+      <CardActions disableSpacing sx={styles.button}>
         {action && action(actor)}
 
         <Link to={`/actors/${actor.id}`}>

@@ -159,3 +159,14 @@ export interface SignInResults {
   message: string;
   token: string;
 }
+
+export interface ActorDetailsProps {
+  name: string;
+  profile_path: string | null;
+  birthday: string | null;
+  place_of_birth: string | null;
+  biography: string;
+  popularity: number;
+  known_for_department?: string;
+  also_known_as?: string[];
+}
