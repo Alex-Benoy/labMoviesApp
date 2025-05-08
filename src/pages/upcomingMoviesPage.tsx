@@ -8,10 +8,15 @@ import { getUpcomingMovies } from "../api/tmdb-api"; // <--- CLEANED UP
 import AddToMustWatchIcon from "../components/cardIcons/addToMustWatch";
 
 const UpcomingMoviesPage: React.FC = () => {
-  const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
-    "upcoming",
-    getUpcomingMovies
-  );
+    const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
+        "upcoming",
+        getUpcomingMovies,
+        {
+          staleTime: 1000 * 60 * 5, // 5 minutes: prevents refetching within this window
+          cacheTime: 1000 * 60 * 10, // 10 minutes: keeps data in cache for 10 minutes even if unused
+        }
+      );
+      
 
   if (isLoading) return <Spinner />;
   if (isError) return <h1>{error.message}</h1>;
