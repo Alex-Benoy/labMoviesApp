@@ -95,3 +95,18 @@ export const getTVSeries = async (): Promise<DiscoverTVSeries> => {
   if (!response.ok) throw new Error(response.statusText);
   return await response.json();
 };
+
+export const getTVSeriesDetails = (id: string) => {
+  return fetch(
+    `https://api.themoviedb.org/3/tv/${id}?api_key=${import.meta.env.VITE_TMDB_KEY}`
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Failed to get TV series data. Response status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      throw error;
+    });
+};

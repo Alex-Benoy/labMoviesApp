@@ -122,3 +122,19 @@ export interface DiscoverTVSeries {
   total_results: number;
   results: TVSeriesProps[];
 }
+
+export interface TVSeriesDetailsProps {
+  id: number;
+  name: string;
+  overview: string;
+  tagline?: string;
+  genres: { id: number; name: string }[];
+  homepage?: string;
+  vote_average: number;
+  vote_count: number;
+  first_air_date: string;
+  episode_run_time: number[];
+  number_of_seasons: number;
+  number_of_episodes: number;
+  poster_path?: string;
+}
