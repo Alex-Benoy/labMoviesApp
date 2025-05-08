@@ -95,3 +95,30 @@ interface MovieContextInterface {
   addToMustWatch: (movie: BaseMovieProps) => void; // ✅ New
   addReview: (movie: BaseMovieProps, review: Review) => void;
 }
+
+export interface TVSeriesProps {
+  id: number;
+  name: string;
+  overview: string;
+  vote_average: number;
+  first_air_date: string;
+  poster_path?: string;
+  genre_ids?: number[];
+  favourite?: boolean;
+}
+
+export interface BaseTVSeriesListProps {
+  series: TVSeriesProps[];
+  action: (s: TVSeriesProps) => React.ReactNode;
+}
+
+export interface TVSeriesListPageTemplateProps extends BaseTVSeriesListProps {
+  title: string;
+}
+
+export interface DiscoverTVSeries {
+  page: number;
+  total_pages: number;
+  total_results: number;
+  results: TVSeriesProps[];
+}

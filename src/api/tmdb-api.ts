@@ -1,3 +1,5 @@
+import { DiscoverTVSeries } from "../types/interfaces";
+
 export const getMovies = () => {
   return fetch(
     `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
@@ -87,3 +89,9 @@ export const getPopularMovies = () => {
   });
 };
 
+// api/tmdb-api.ts
+export const getTVSeries = async (): Promise<DiscoverTVSeries> => {
+  const response = await fetch(`https://api.themoviedb.org/3/discover/tv?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&sort_by=popularity.desc&page=1`);
+  if (!response.ok) throw new Error(response.statusText);
+  return await response.json();
+};
