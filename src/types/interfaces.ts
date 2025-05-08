@@ -138,3 +138,24 @@ export interface TVSeriesDetailsProps {
   number_of_episodes: number;
   poster_path?: string;
 }
+
+export interface ActorProps {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string;
+}
+
+export interface SignInFormData {
+  username: string;
+  password: string;
+}
+
+export interface SignInResults {
+  message: string;
+  token: string;
+}
