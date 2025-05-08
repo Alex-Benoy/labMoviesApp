@@ -44,6 +44,15 @@ export interface MovieImage {
   width?: number;
 }
 
+export interface Review {
+  author: string,
+  content: string,
+  agree: boolean,
+  rating: number,
+  movieId: number,
+}
+
+
 export interface MoviePageProps {
   movie: MovieDetailsProps;
   images: MovieImage[];
