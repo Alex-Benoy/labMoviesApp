@@ -41,6 +41,23 @@ export const getGenres = () => {
  });
 };
 
+export const getLanguages = () => {
+  return fetch(
+    "https://api.themoviedb.org/3/configuration/languages?api_key=" +
+      import.meta.env.VITE_TMDB_KEY
+  )
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(`Unable to fetch languages. Response status: ${response.status}`);
+      return response.json();
+    })
+    .catch((error) => {
+      throw error;
+    });
+};
+
+
+
 
 export const getMovieImages = (id: string | number) => {
   return fetch(
