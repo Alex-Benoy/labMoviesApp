@@ -32,14 +32,14 @@ const ActorHeader: React.FC<ActorProps> = (actor) => {
 
       <Typography variant="h4" component="h3">
         {actor.name}{" "}
-        {actor.homepage && (
+        {/* {actor.homepage && (
           <a href={actor.homepage} target="_blank" rel="noopener noreferrer">
             <HomeIcon color="primary" fontSize="large" />
           </a>
-        )}
-        {isFavourite && (
+        )} */}
+        {/* {isFavourite && (
           <FavoriteIcon color="error" fontSize="large" sx={{ ml: 1 }} />
-        )}
+        )} */}
         {/* <br />
         <span>{actor.known_for_department}</span> */}
       </Typography>

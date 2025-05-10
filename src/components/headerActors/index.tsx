@@ -23,7 +23,7 @@ const ActorsHeader: React.FC<ActorsHeaderProps> = ({ title = "Actors" }) => {
     return (
         <Paper component="div" sx={styles.root}>
             <IconButton aria-label="go back">
-                <ArrowBackIcon color="secondary" fontSize="large" />
+                <ArrowBackIcon color="primary" fontSize="large" />
             </IconButton>
 
             <Typography variant="h4" component="h3">
@@ -31,7 +31,7 @@ const ActorsHeader: React.FC<ActorsHeaderProps> = ({ title = "Actors" }) => {
             </Typography>
 
             <IconButton aria-label="go forward">
-                <ArrowForwardIcon color="secondary" fontSize="large" />
+                <ArrowForwardIcon color="primary" fontSize="large" />
             </IconButton>
         </Paper>
     );

@@ -19,6 +19,7 @@ import SignInPage from "./pages/loginPage";
 import { UserProvider } from "./contexts/loginContext"; // <-- ✅ ADD THIS LINE
 import ActorDetailsPage from "./pages/actorDetailsPage";
 import FantasyMoviePage from "./pages/FantasyMoviePage";
+import ReviewsPage from "./pages/reviewsPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -51,7 +52,8 @@ const App = () => {
               <Route path="/login" element={<SignInPage />} />
               <Route path="*" element={<Navigate to="/" />} />
               <Route path="/actors/:id" element={<ActorDetailsPage />} />
-              <Route path="/fantasymovie/" element={<FantasyMoviePage />} />
+              <Route path="/fantasymovie" element={<FantasyMoviePage />} />
+              <Route path="/review" element={<ReviewsPage />} />
             </Routes>
           </MoviesContextProvider>
         </UserProvider>

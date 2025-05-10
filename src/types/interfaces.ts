@@ -140,7 +140,6 @@ export interface TVSeriesDetailsProps {
 }
 
 export interface ActorProps {
-  homepage: any;
   adult: boolean;
   gender: number;
   id: number;
