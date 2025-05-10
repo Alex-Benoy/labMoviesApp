@@ -87,14 +87,14 @@ export interface DiscoverMovies {
   results: BaseMovieProps[];
 }
 
-interface MovieContextInterface {
-  favourites: number[];
-  mustWatch: number[]; // ✅ New
-  addToFavourites: (movie: BaseMovieProps) => void;
-  removeFromFavourites: (movie: BaseMovieProps) => void;
-  addToMustWatch: (movie: BaseMovieProps) => void; // ✅ New
-  addReview: (movie: BaseMovieProps, review: Review) => void;
-}
+// interface MovieContextInterface {
+//   favourites: number[];
+//   mustWatch: number[]; // ✅ New
+//   addToFavourites: (movie: BaseMovieProps) => void;
+//   removeFromFavourites: (movie: BaseMovieProps) => void;
+//   addToMustWatch: (movie: BaseMovieProps) => void; // ✅ New
+//   addReview: (movie: BaseMovieProps, review: Review) => void;
+// }
 
 export interface TVSeriesProps {
   id: number;
@@ -140,6 +140,7 @@ export interface TVSeriesDetailsProps {
 }
 
 export interface ActorProps {
+  homepage: any;
   adult: boolean;
   gender: number;
   id: number;

@@ -3,11 +3,11 @@ import {
   Paper,
   Typography,
   Chip,
-  Avatar,
+//   Avatar,
   Fab,
   Drawer,
   Grid,
-  Box,
+//   Box,
 } from "@mui/material";
 import CakeIcon from "@mui/icons-material/Cake";
 import StarRateIcon from "@mui/icons-material/StarRate";
@@ -43,9 +43,9 @@ const ActorDetails: React.FC<ActorDetailsProps> = (actor) => {
 
   return (
     <>
-      <Typography variant="h4" component="h2" gutterBottom align="center">
+      {/* <Typography variant="h4" component="h2" gutterBottom align="center">
         {actor.name}
-      </Typography>
+      </Typography> */}
 
       <Grid container spacing={4}>
         {/* Left: Image */}
