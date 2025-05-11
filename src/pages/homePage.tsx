@@ -5,6 +5,7 @@ import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,
   genreFilter,
+  languageFilter,
 } from "../components/movieFilterUI";
 import { BaseMovieProps, DiscoverMovies } from "../types/interfaces";
 import { useQuery } from "react-query";
@@ -22,11 +23,16 @@ const genreFiltering = {
   value: "0",
   condition: genreFilter,
 };
+const languageFiltering = {
+  name: "language",
+  value: "all",
+  condition: languageFilter,
+};
 
 const HomePage: React.FC = () => {
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("discover", getMovies);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
-    [titleFiltering, genreFiltering]
+    [titleFiltering, genreFiltering, languageFiltering]
   );
 
   if (isLoading) {
@@ -38,14 +44,21 @@ const HomePage: React.FC = () => {
   }
 
 
+  // const changeFilterValues = (type: string, value: string) => {
+  //   const changedFilter = { name: type, value: value };
+  //   const updatedFilterSet =
+  //     type === "title"
+  //       ? [changedFilter, filterValues[1]]
+  //       : [filterValues[0], changedFilter];
+  //   setFilterValues(updatedFilterSet);
+  // };
   const changeFilterValues = (type: string, value: string) => {
-    const changedFilter = { name: type, value: value };
-    const updatedFilterSet =
-      type === "title"
-        ? [changedFilter, filterValues[1]]
-        : [filterValues[0], changedFilter];
+    const updatedFilterSet = filterValues.map(f =>
+      f.name === type ? { ...f, value } : f
+    );
     setFilterValues(updatedFilterSet);
   };
+
 
   const movies = data ? data.results : [];
   const displayedMovies = filterFunction(movies);
@@ -68,6 +81,7 @@ const HomePage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+        languageFilter={filterValues[2].value}
       />
     </>
   );

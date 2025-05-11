@@ -11,7 +11,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SortIcon from '@mui/icons-material/Sort';
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { getGenres } from "../../api/tmdb-api";
+import { getGenres, getLanguages } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from '../spinner';
 
@@ -30,39 +30,47 @@ const styles = {
 };
 
 interface FilterMoviesCardProps {
-    onUserInput: (f: FilterOption, s: string)  => void;
+    onUserInput: (f: FilterOption, s: string) => void;
     titleFilter: string;
     genreFilter: string;
+    languageFilter: string;
 }
 
-const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({ titleFilter, genreFilter, onUserInput }) => {
+const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({ titleFilter, genreFilter, languageFilter, onUserInput }) => {
     const { data, error, isLoading, isError } = useQuery<GenreData, Error>("genres", getGenres);
-  
+    const { data: languageData, isLoading: langLoading, error: langError } = useQuery("languages", getLanguages);
+
+
     if (isLoading) {
-      return <Spinner />;
+        return <Spinner />;
     }
     if (isError) {
-      return <h1>{(error as Error).message}</h1>;
+        return <h1>{(error as Error).message}</h1>;
     }
     const genres = data?.genres || [];
     if (genres[0].name !== "All") {
-      genres.unshift({ id: "0", name: "All" });
+        genres.unshift({ id: "0", name: "All" });
     }
-  
+
     const handleChange = (e: SelectChangeEvent, type: FilterOption, value: string) => {
-      e.preventDefault()
+        e.preventDefault()
         onUserInput(type, value)
     };
-  
+
     const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
-      handleChange(e, "title", e.target.value)
+        handleChange(e, "title", e.target.value)
     }
-  
+
     const handleGenreChange = (e: SelectChangeEvent) => {
-      handleChange(e, "genre", e.target.value)
+        handleChange(e, "genre", e.target.value)
     };
 
-    
+    const handleLanguageChange = (e: SelectChangeEvent) => {
+        handleChange(e, "language", e.target.value);
+    };
+
+
+
     return (
         <>
             <Card sx={styles.root} variant="outlined">
@@ -99,6 +107,23 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({ titleFilter, genreF
                             })}
                         </Select>
                     </FormControl>
+                    <FormControl sx={styles.formControl}>
+                        <InputLabel id="language-label">Language</InputLabel>
+                        <Select
+                            labelId="language-label"
+                            id="language-select"
+                            value={languageFilter}
+                            onChange={handleLanguageChange}
+                        >
+                            <MenuItem value="all">All</MenuItem>
+                            {languageData?.map((lang: any) => (
+                                <MenuItem key={lang.iso_639_1} value={lang.iso_639_1}>
+                                    {lang.english_name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+
                 </CardContent>
             </Card>
             <Card sx={styles.root} variant="outlined">

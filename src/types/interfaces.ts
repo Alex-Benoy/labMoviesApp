@@ -58,7 +58,7 @@ export interface MoviePageProps {
   images: MovieImage[];
 }
 
-export type FilterOption = "title" | "genre";
+export type FilterOption = "title" | "genre" | "language";
 
 export interface MovieListPageTemplateProps extends BaseMovieListProps {
   title: string;
@@ -169,4 +169,17 @@ export interface ActorDetailsProps {
   popularity: number;
   known_for_department?: string;
   also_known_as?: string[];
+}
+
+interface FilterMoviesCardProps {
+    onUserInput: (f: FilterOption, s: string) => void;
+    titleFilter: string;
+    genreFilter: string;
+    languageFilter: string;
+}
+interface MovieFilterUIProps {
+    onFilterValuesChange: (f: string, s: string) => void;
+    titleFilter: string;
+    genreFilter: string;
+    languageFilter: string;  // <-- Add this line to include languageFilter
 }
