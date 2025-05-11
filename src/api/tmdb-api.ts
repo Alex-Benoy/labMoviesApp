@@ -185,7 +185,56 @@ export const addReviewFrontend = async (review:{}) => {
 
   export const getFrontendReview = async () => {
     try {
-      const response = await fetch("https://e9246nzte4.execute-api.eu-west-1.amazonaws.com/prod/reviews", {
+      const response = await fetch("https://e9246nzte4.execute-api.eu-west-1.amazonaws.com/prod/frontendreviews", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Failed to fetch reviews. Status: ${response.status}`);
+      }
+  
+      const result = await response.json();
+      console.log("Fetched reviews:", result);
+      return result.data; // Assuming the response is an array of reviews
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+      throw error;
+    }
+  };
+  
+  export const addFantasyMovie = async (movie: Record<string, any>) => {
+  try {
+    console.log("Sending movie to API:", movie);
+
+    const response = await fetch("https://e9246nzte4.execute-api.eu-west-1.amazonaws.com/prod/fantasymovies", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(movie),
+    });
+
+    if (!response.ok) {
+      const errorDetails = await response.text();
+      console.error(`Error posting movie. Status: ${response.status}, Details: ${errorDetails}`);
+      throw new Error(`Failed to post movie. Status: ${response.status}`);
+    }
+
+    const result = await response.json();
+    console.log("Movie successfully posted:", result);
+    return result;
+  } catch (error) {
+    console.error("Error posting movie:", error);
+    throw error;
+  }
+};
+
+export const getFantasyMovie = async () => {
+    try {
+      const response = await fetch("https://e9246nzte4.execute-api.eu-west-1.amazonaws.com/prod/fantasymovies", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

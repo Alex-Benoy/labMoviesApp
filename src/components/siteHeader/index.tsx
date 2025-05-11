@@ -11,41 +11,52 @@ import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { useUser } from "../../contexts/loginContext"; // Ensure this path is correct
 
 const styles = {
-    title: {
-      flexGrow: 1,
-    },
-  };
+  title: {
+    flexGrow: 1,
+  },
+};
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader: React.FC = () => {
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement|null>(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const open = Boolean(anchorEl);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
-
-  const menuOptions = [
-    { label: "Home", path: "/" },
-    { label: "Favorites", path: "/movies/favourites" },
-    { label: "Upcoming", path: "/movies/upcoming" },
-    { label: "Popular", path: "/movies/popular" },
-    { label: "TV Series", path: "/tv" },
-    { label: "Actors", path: "/actors" },
-    { label: "Fantasy Movie", path: "/fantasymovie" },
-    { label: "My Reviews", path: "/review" },
-    { label: "Logout", path: "/login" },
-  ];
+  const { isLoggedIn, setIsLoggedIn } = useUser(); // Access and modify login state
 
   const handleMenuSelect = (pageURL: string) => {
     navigate(pageURL);
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false); // Update context
+    navigate("/login");   // Redirect to login
+  };
+
   const handleMenu = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
+  // Menu options (excluding login/logout)
+  const baseMenuOptions = [
+    { label: "Home", path: "/" },
+    ...(isLoggedIn
+      ? [
+          { label: "Favorites", path: "/movies/favourites" },
+          { label: "Fantasy Movie", path: "/fantasymovie" },
+        ]
+      : []),
+    { label: "Upcoming", path: "/movies/upcoming" },
+    { label: "Popular", path: "/movies/popular" },
+    { label: "TV Series", path: "/tv" },
+    { label: "Actors", path: "/actors" },
+    { label: "New Reviews", path: "/review" },
+  ];
 
   return (
     <>
@@ -72,19 +83,13 @@ const SiteHeader: React.FC = () => {
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
                 keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
+                transformOrigin={{ vertical: "top", horizontal: "right" }}
                 open={open}
                 onClose={() => setAnchorEl(null)}
               >
-                {menuOptions.map((opt) => (
+                {baseMenuOptions.map((opt) => (
                   <MenuItem
                     key={opt.label}
                     onClick={() => handleMenuSelect(opt.path)}
@@ -92,11 +97,14 @@ const SiteHeader: React.FC = () => {
                     {opt.label}
                   </MenuItem>
                 ))}
+                <MenuItem onClick={isLoggedIn ? handleLogout : () => navigate("/login")}>
+                  {isLoggedIn ? "Logout" : "Login"}
+                </MenuItem>
               </Menu>
             </>
           ) : (
             <>
-              {menuOptions.map((opt) => (
+              {baseMenuOptions.map((opt) => (
                 <Button
                   key={opt.label}
                   color="inherit"
@@ -105,6 +113,12 @@ const SiteHeader: React.FC = () => {
                   {opt.label}
                 </Button>
               ))}
+              <Button
+                color="inherit"
+                onClick={isLoggedIn ? handleLogout : () => navigate("/login")}
+              >
+                {isLoggedIn ? "Logout" : "Login"}
+              </Button>
             </>
           )}
         </Toolbar>
