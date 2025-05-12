@@ -34,5 +34,5 @@ MoviesApp is a modern web application built using React, TypeScript, and Vite. I
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/MoviesApp.git
-cd MoviesApp
+git clone https://github.com/Alex-Benoy/labMoviesApp.git
+cd labMoviesApp
