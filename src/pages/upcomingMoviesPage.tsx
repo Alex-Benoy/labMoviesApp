@@ -5,7 +5,7 @@ import Spinner from "../components/spinner";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
 import { BaseMovieProps, DiscoverMovies } from "../types/interfaces";
 import { getUpcomingMovies } from "../api/tmdb-api";
-import MovieFilterUI, { genreFilter, titleFilter } from "../components/movieFilterUI"; // Import filters
+import MovieFilterUI, { genreFilter, languageFilter, titleFilter } from "../components/movieFilterUI"; // Import filters
 import useFiltering from "../hooks/useFiltering";
 import AddToMustWatchIcon from "../components/cardIcons/addToMustWatch";
 
@@ -21,6 +21,13 @@ const genreFiltering = {
   value: "0", // Default to "All" genre
   condition: genreFilter,
 };
+
+const languageFiltering = {
+  name: "language",
+  value: "0", // Default to "All" genre
+  condition: languageFilter,
+};
+
 
 const UpcomingMoviesPage: React.FC = () => {
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
@@ -63,6 +70,7 @@ const UpcomingMoviesPage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+        languageFilter={filterValues[0].value}
       />
     </>
   );
